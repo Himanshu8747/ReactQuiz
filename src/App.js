@@ -86,7 +86,8 @@ function App() {
 
   const [ {questions,status,index,answer,points,highscore,secondsRemaining} ,dispatch] =useReducer(reducer,initialState); 
   useEffect(()=>{
-    fetch("http://localhost:8000/questions")
+    // fetch("http://localhost:8000/questions")
+    fetch("https://12527099-0012-4b6b-93ae-79adad5eea43.mock.pstmn.io/quiz/questions")
     .then(res=>res.json())
     .then(data=>dispatch({type:"dataRecieved",payload:data}))
     .catch(err=>dispatch({type:"dataFailed"}));
