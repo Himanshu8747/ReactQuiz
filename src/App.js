@@ -110,7 +110,9 @@ function App() {
       .catch((err) => dispatch({ type: 'dataFailed' }));
   }, []);
 
-  const maxPoints = questions.reduce((prev, cur) => prev + cur.points, 0);
+  const maxPoints = Array.isArray(questions)
+  ? questions.reduce((prev, cur) => prev + cur.points, 0)
+  : 0;
 
   return (
     <div className="App">
