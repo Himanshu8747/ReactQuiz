@@ -6,6 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+header{
+  font-family: 'Codystar';
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
