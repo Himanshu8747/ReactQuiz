@@ -1,6 +1,6 @@
 import React from 'react';
 
-const WelcomeScreen = ({ numberOfQuestions, dispatch }) => {
+const WelcomeScreen = ({ numberOfQuestions, dispatch, questions }) => {
   return (
     <div className='ready-state-container text-center bg-gray-800 text-white p-8 rounded-lg shadow-lg'>
       <h2 className='text-5xl font-bold mb-4'>Welcome to The React Quiz!</h2>

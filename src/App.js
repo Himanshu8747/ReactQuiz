@@ -11,6 +11,7 @@ import Progress from './components/Progress';
 import FinishScreen from './components/FinishScreen';
 import Footer from './components/Footer';
 import Timer from './components/Timer';
+import { questionArray } from './data/questions';
 
 const SECS_PER_QUESTION = 30;
 
@@ -99,20 +100,12 @@ function App() {
     },
     dispatch,
   ] = useReducer(reducer, initialState);
+
   useEffect(() => {
-    // fetch("http://localhost:8000/questions")
-    fetch('https://12527099-0012-4b6b-93ae-79adad5eea43.mock.pstmn.io/quiz/questions')
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('Received data:', data);
-        dispatch({ type: 'dataRecieved', payload: data });
-      })
-      .catch((err) => dispatch({ type: 'dataFailed' }));
+    dispatch({ type: 'dataRecieved', payload: questionArray });
   }, []);
 
-  const maxPoints = Array.isArray(questions)
-  ? questions.reduce((prev, cur) => prev + cur.points, 0)
-  : 0;
+  const maxPoints = questions.reduce((prev, cur) => prev + cur.points, 0);
 
   return (
     <div className="App">
@@ -121,7 +114,11 @@ function App() {
         {status === 'loading' && <Loader />}
         {status === 'error' && <Error />}
         {status === 'ready' && (
-          <WelcomeScreen numberOfQuestions={questions.length} dispatch={dispatch} />
+          <WelcomeScreen
+            numberOfQuestions={questions.length}
+            dispatch={dispatch}
+            questions={questions}
+          />
         )}
         {status === 'active' && (
           <>
@@ -132,7 +129,11 @@ function App() {
               maxPoints={maxPoints}
               answer={answer}
             />
-            <Question questions={questions[index]} dispatch={dispatch} answer={answer} />
+            <Question
+              question={questions[index]}
+              dispatch={dispatch}
+              answer={answer}
+            />
             <Footer>
               <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
               <NextButton
@@ -145,7 +146,12 @@ function App() {
           </>
         )}
         {status === 'finished' && (
-          <FinishScreen points={points} dispatch={dispatch} maxPoints={maxPoints} highscore={highscore} />
+          <FinishScreen
+            points={points}
+            dispatch={dispatch}
+            maxPoints={maxPoints}
+            highscore={highscore}
+          />
         )}
       </Main>
     </div>
