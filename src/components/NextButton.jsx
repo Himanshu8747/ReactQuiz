@@ -5,7 +5,7 @@ const NextButton = ({ dispatch, answer, index, numberOfQuestions }) => {
 
   return (
     <button
-      className="next-button bg-purple-600 text-white py-2 px-4 rounded"
+      className="next-button bg-purple-600 text-white py-2 px-4 rounded mt-10"
       onClick={() =>
         index < numberOfQuestions - 1
           ? dispatch({ type: 'nextQuestion' })
